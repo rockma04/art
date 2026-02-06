@@ -3,8 +3,7 @@
 </script>
 
 <template>
-  <h1>About Page</h1>
-  <h2>Yay Edit</h2>
+<h1>Potential Projects</h1>
 </template>
 
 <style scoped>

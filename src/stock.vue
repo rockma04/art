@@ -3,8 +3,8 @@
 </script>
 
 <template>
-  <h1>About Page</h1>
-  <h2>Yay Edit</h2>
+  <h1>Items Needed</h1>
+  <h1>Current Items</h1>
 </template>
 
 <style scoped>
