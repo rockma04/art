@@ -2,13 +2,12 @@
   import { ref } from 'vue'
 
   const tab = ref(null)
-  const overlay = ref(false)
 
   const values = [
     {
       title: 'Types',
       image: 'types.jpeg',
-      text: 'Photographs, prints, paintings, drawings. There are many types of art which you can learn more about throughout the sections listed below and see projects that have been completed. '
+      text: 'Photographs, prints, paintings, drawings. There are many types of art which you can learn more about or see different completed projects throughout the sections below. '
     },
     {
       title: 'Materials',
@@ -22,33 +21,29 @@
       title: 'About',
       subtitle: 'Learn more about the different types of art!',
       image: 'about.jpeg',
-      information: '',
       link: '#/about',
-      flex: 6
+      flex: 12
     },
     {
       title: 'Stock',
       subtitle: 'Check out what items are currently available!',
       image: 'stock.jpeg',
-      information: '',
       link: '#/stock',
-      flex: 6
-    },
-    {
-      title: 'Completed',
-      subtitle: 'View the completed projects!',
-      image: 'completed.jpeg',
-      information: '',
-      link: '#/completed',
-      flex: 6
+      flex: 4
     },
     {
       title: 'Potential',
       subtitle: 'Look through possible projects to complete!',
       image: 'potential.jpeg',
-      information: '',
       link: '#/potential',
-      flex: 6
+      flex: 4
+    },
+    {
+      title: 'Completed',
+      subtitle: 'View the completed projects!',
+      image: 'completed.jpeg',
+      link: '#/completed',
+      flex: 4
     },
   ]
 </script>
@@ -59,6 +54,13 @@
       cycle
       delimiter-icon="mdi-palette-outline"
   >
+
+    <v-carousel-item>
+      <v-parallax
+          src="materials.JPG">
+      </v-parallax>
+    </v-carousel-item>
+
     <v-carousel-item>
       <v-parallax
           src="carousel_3.jpeg">
@@ -67,13 +69,7 @@
 
     <v-carousel-item>
       <v-parallax
-          src="carousel_6.jpeg">
-      </v-parallax>
-    </v-carousel-item>
-
-    <v-carousel-item>
-      <v-parallax
-          src="carousel_4.jpeg">
+          src="completed.jpeg">
       </v-parallax>
     </v-carousel-item>
 
@@ -120,7 +116,7 @@
       <v-col
           v-for="page in pages"
           :key="page.title"
-          :cols="6">
+          :cols="page.flex">
         <v-hover v-slot="{ isHovering, props}">
         <v-card
           :class="{ 'on-hover': isHovering }"

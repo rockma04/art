@@ -41,25 +41,25 @@ const currentView = computed(() => {
           prepend-icon="mdi-information-outline"
           href="#/about"
           title="About"
-          @click="drawer =! drawer"
+          @click="drawer = !drawer"
       ></v-list-item>
       <v-list-item
           prepend-icon="mdi-list-box-outline"
           href="#/stock"
           title="Stock"
-          @click="drawer =! drawer"
+          @click="drawer = !drawer"
       ></v-list-item>
       <v-list-item
           prepend-icon="mdi-check-outline"
           href="#/completed"
           title="Completed"
-          @click="drawer =! drawer"
+          @click="drawer = !drawer"
       ></v-list-item>
       <v-list-item
           prepend-icon="mdi-lightbulb-on-outline"
           href="#/potential"
           title="Potential"
-          @click="drawer =! drawer"
+          @click="drawer = !drawer"
       ></v-list-item>
     </v-navigation-drawer>
     <v-app-bar
