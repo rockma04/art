@@ -50,7 +50,7 @@
 
 <template>
   <v-carousel
-      height="625"
+      height="675"
       cycle
       delimiter-icon="mdi-palette-outline"
   >

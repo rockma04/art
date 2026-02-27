@@ -3,15 +3,15 @@ import { ref, computed } from 'vue'
 import home from './home.vue'
 import about from './about.vue'
 import stock from './stock.vue'
-import completed from './completed.vue'
 import potential from './potential.vue'
+import completed from './completed.vue'
 
 const routes = {
   '/': home,
   '/about': about,
   '/stock': stock,
+  '/potential': potential,
   '/completed': completed,
-  '/potential': potential
 }
 
 const currentPath = ref (window.location.hash)
@@ -29,7 +29,7 @@ const currentView = computed(() => {
   <v-app>
     <v-navigation-drawer
         color="red-accent-1"
-        class="text-grey-lighten-5"
+        class="text-grey-lighten-5 header"
         v-model="drawer">
       <v-list-item
           prepend-icon="mdi-home-outline"
@@ -50,15 +50,15 @@ const currentView = computed(() => {
           @click="drawer = !drawer"
       ></v-list-item>
       <v-list-item
-          prepend-icon="mdi-check-outline"
-          href="#/completed"
-          title="Completed"
-          @click="drawer = !drawer"
-      ></v-list-item>
-      <v-list-item
           prepend-icon="mdi-lightbulb-on-outline"
           href="#/potential"
           title="Potential"
+          @click="drawer = !drawer"
+      ></v-list-item>
+      <v-list-item
+          prepend-icon="mdi-check-outline"
+          href="#/completed"
+          title="Completed"
           @click="drawer = !drawer"
       ></v-list-item>
     </v-navigation-drawer>
@@ -68,12 +68,12 @@ const currentView = computed(() => {
         scroll-behavior="collapse"
     >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-app-bar-title class="text-h3 header">The Working Title</v-app-bar-title>
+      <v-app-bar-title class="text-h4 header">The Working Title</v-app-bar-title>
     </v-app-bar>
     <v-main>
       <component :is="currentView"></component>
     </v-main>
-    <v-footer app="true">Copyright 2026</v-footer>
+    <v-footer class="absolute app=false justify-center">Copyright 2026</v-footer>
   </v-app>
 </template>
 
