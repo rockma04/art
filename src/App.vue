@@ -68,7 +68,12 @@ const currentView = computed(() => {
         scroll-behavior="collapse"
     >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-app-bar-title class="text-h4 header">The Working Title</v-app-bar-title>
+      <v-btn
+          href="#/">
+        <v-app-bar-title class="text-h4 header">
+          The Working Title
+        </v-app-bar-title>
+      </v-btn>
     </v-app-bar>
     <v-main>
       <component :is="currentView"></component>
