@@ -227,7 +227,8 @@
 
   <v-container
       class="d-xs-flex d-md-none"
-      fluid>
+      fluid
+  >
     <v-row density="comfortable">
       <v-col
           v-for="page in pages"
