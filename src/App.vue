@@ -5,6 +5,9 @@ import about from './about.vue'
 import stock from './stock.vue'
 import potential from './potential.vue'
 import completed from './completed.vue'
+import photo from './photoGallery.vue'
+import print from './printGallery.vue'
+import pencil from './pencilGallery.vue'
 
 const routes = {
   '/': home,
@@ -12,6 +15,10 @@ const routes = {
   '/stock': stock,
   '/potential': potential,
   '/completed': completed,
+  '/photo': photo,
+  '/print': print,
+  '/pencil': pencil,
+
 }
 
 const currentPath = ref (window.location.hash)
