@@ -1,51 +1,70 @@
 <script setup>
-  import { ref } from 'vue'
+  import { onMounted, ref } from 'vue'
 
   const tab = ref(null)
 
-  const values = [
-    {
-      title: 'Types',
-      image: 'types.jpeg',
-      text: 'Photographs, prints, paintings, drawings. There are many types of art which you can learn more about or see different completed projects throughout the sections below. '
-    },
-    {
-      title: 'Materials',
-      image: 'materials.JPG',
-      text: 'Colored pencils, paint, ink. Check out the types of materials used in different projects and keep track of what is still available on the stock page. ',
-    },
-  ]
+  const pages = ref([])
+  const tabs = ref([])
+  const loading = ref(true)
+  const error = ref('')
 
-  const pages = [
-    {
-      title: 'About',
-      subtitle: 'Learn more about the different types of art!',
-      image: 'about.jpg',
-      link: '#/about',
-      flex: 12
-    },
-    {
-      title: 'Stock',
-      subtitle: 'Check out what items are currently available!',
-      image: 'stock.jpg',
-      link: '#/stock',
-      flex: 4
-    },
-    {
-      title: 'Potential',
-      subtitle: 'Look through possible projects to complete!',
-      image: 'potential.jpg',
-      link: '#/potential',
-      flex: 4
-    },
-    {
-      title: 'Completed',
-      subtitle: 'View the completed projects!',
-      image: 'completed.jpg',
-      link: '#/completed',
-      flex: 4
-    },
-  ]
+  async function loadPages() {
+    loading.value = true
+    error.value = ''
+
+    try{
+      const response = await fetch('/api/pages')
+
+      if (!response.ok) {
+        throw new Error('Failed to load pages')
+      }
+      const data = await response.json();
+
+      pages.value = data.map((page) => ({
+        id: page.id,
+        title: page.title,
+        subtitle: page.subtitle,
+        image: page.image,
+        link: page.link,
+        flex: page.flex
+      }))
+    } catch (err) {
+      error.value = err.message || 'Error while trying to load pages'
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function loadTabs() {
+    loading.value = true
+    error.value = ''
+
+    try{
+      const response = await fetch('/api/tabs')
+
+      if (!response.ok) {
+        throw new Error('Failed to load tabs')
+      }
+      const data = await response.json();
+
+      tabs.value = data.map((tab) => ({
+        id: tab.id,
+        title: tab.title,
+        image: tab.image,
+        text: tab.text
+      }))
+    } catch (err) {
+      error.value = err.message || 'Error while trying to load tabs'
+    } finally {
+      loading.value = false
+    }
+  }
+
+  onMounted(() => {
+    loadPages()
+    loadTabs()
+  })
+
 </script>
 
 <template>
@@ -149,18 +168,18 @@
     grow
   >
     <v-tab
-      v-for="value in values"
-      :key="value.title"
-      :text="value.title"
-      :value="value.title"
+      v-for="tab in tabs"
+      :key="tab.title"
+      :text="tab.title"
+      :value="tab.title"
     ></v-tab>
   </v-tabs>
 
   <v-tabs-window v-model="tab">
     <v-tabs-window-item
-      v-for="value in values"
-      :key="value.title"
-      :value="value.title"
+      v-for="tab in tabs"
+      :key="tab.title"
+      :value="tab.title"
       >
         <v-card
           color="red-accent-1"
@@ -169,7 +188,7 @@
           <v-card-text
             class="text-center text-white font-italic"
           >
-            {{ value.text }}</v-card-text>
+            {{ tab.text }}</v-card-text>
         </v-card>
     </v-tabs-window-item>
     </v-tabs-window>

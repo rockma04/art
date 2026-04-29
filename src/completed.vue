@@ -1,39 +1,39 @@
 <script setup>
-  import {ref} from "vue"
+  import { onMounted, ref} from "vue"
   import PageHeader from "./components/pageHeader.vue"
 
-  const galleries = [
-    {
-      style: 'Colored Pencil',
-      description: 'Landscapes, Portraits, Nature, and Still Lives.',
-      link: '#/pencil'
-    },
-    {
-      style: 'Collage',
-      description: 'Landscapes, Portraits, Nature, and Still Lives.',
-      link: '#/pencil'
-    },
-    {
-      style: 'Painting',
-      description: 'Landscapes, Portraits, Nature, and Still Lives.',
-      link: '#/pencil'
-    },
-    {
-      style: 'Photography',
-      description: 'Landscapes, Portraits, Nature, and Still Lives.',
-      link: '#/photo'
-    },
-    {
-      style: 'Prints',
-      description: 'Landscapes, Portraits, Nature, and Still Lives.',
-      link: '#/print'
-    },
-    {
-      style: 'Other',
-      description: 'Landscapes, Portraits, Nature, and Still Lives.',
-      link: '#/pencil'
+  const galleries = ref(null)
+  const loading = ref(true)
+  const error = ref('')
+
+  async function loadGalleries() {
+    loading.value = true
+    error.value = ''
+
+    try {
+      const response = await fetch('/api/galleries')
+
+      if (!response.ok) {
+        throw new Error ('Failed to load galleries')
+      }
+      const data = await response.json();
+
+      galleries.value = data.map((gallery) => ({
+        id: gallery.id,
+        style: gallery.style,
+        description: gallery.description,
+        link: gallery.link
+      }))
+    } catch (err) {
+      error.value = err.message || 'Error trying to load galleries'
+    } finally {
+      loading.value = false
     }
-  ]
+  }
+
+  onMounted(() => {
+    loadGalleries()
+  })
 </script>
 
 <template>
