@@ -1,5 +1,5 @@
 <script setup>
-  import {ref} from "vue"
+  import { onMounted, ref } from "vue"
   import PageHeader from "./components/pageHeader.vue"
   import ProjectCarousel from "./components/projectCarousel.vue"
 

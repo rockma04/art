@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted, ref } from "vue"
 import GalleryGrid from "./components/galleryGrid.vue"
 import PageHeader from "@/components/pageHeader.vue";
 
