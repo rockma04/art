@@ -2,7 +2,7 @@
   import { onMounted, ref} from "vue"
   import PageHeader from "./components/pageHeader.vue"
 
-  const galleries = ref(null)
+  const galleries = ref([])
   const loading = ref(true)
   const error = ref('')
 
