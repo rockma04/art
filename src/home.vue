@@ -66,7 +66,7 @@
     error.value = ''
 
     try{
-      const response = await fetch('http://localhost:3000/homeCarousel')
+      const response = await fetch('/api/homeCarousel')
 
       if (!response.ok) {
         throw new Error('Failed to load carousel')
