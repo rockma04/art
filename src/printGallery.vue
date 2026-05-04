@@ -15,7 +15,7 @@ async function loadPrints() {
     const response = await fetch('/api/prints')
 
     if (!response.ok) {
-      throw new Error('Failed to load photos')
+      throw new Error('Failed to load prints')
     }
     const data = await response.json();
 

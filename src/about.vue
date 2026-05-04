@@ -1,5 +1,4 @@
 <script setup>
-
 import PageHeader from "@/components/pageHeader.vue";
 import ProjectCarousel from "@/components/projectCarousel.vue";
 import {onMounted, ref} from "vue";

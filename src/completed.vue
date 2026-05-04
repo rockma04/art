@@ -31,39 +31,6 @@
     }
   }
 
-  //  const galleries =[ {
-  //    style: 'Colored Pencil',
-  //    description: 'Landscapes, Portraits, Nature, and Still Lives.',
-  //    link: '#/pencil'
-  //   },
-  //   {
-  //     style: 'Collage',
-  //     description: 'Landscapes, Portraits, Nature, and Still Lives.',
-  //     link: '#/pencil'
-  //   },
-  //   {
-  //     style: 'Painting',
-  //     description: 'Landscapes, Portraits, Nature, and Still Lives.',
-  //     link: '#/pencil'
-  //   },
-  //   {
-  //     style: 'Photography',
-  //     description: 'Landscapes, Portraits, Nature, and Still Lives.',
-  //     link: '#/photo'
-  //   },
-  //   {
-  //     style: 'Prints',
-  //     description: 'Landscapes, Portraits, Nature, and Still Lives.',
-  //     link: '#/print'
-  //   },
-  //   {
-  //     style: 'Other',
-  //     description: 'Landscapes, Portraits, Nature, and Still Lives.',
-  //     link: '#/pencil'
-  //   }
-  // ]
-
-
   onMounted(() => {
     loadGalleries()
   })

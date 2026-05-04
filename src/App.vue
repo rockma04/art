@@ -75,7 +75,7 @@ const currentView = computed(() => {
       <v-btn
           href="#/">
         <v-app-bar-title class="text-h4 header">
-          The Working Title
+          Art by Mel
         </v-app-bar-title>
       </v-btn>
     </v-app-bar>

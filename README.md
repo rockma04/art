@@ -1,38 +1,33 @@
 # art
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Recommended Browser Setup
-
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
+### Running the Site
 ```sh
-npm install
+This site uses vue, vuetify, and mdi-icons. 
+- npm add vuetify
+- npm install @mdi/font -D 
+
+
+When running the site after initial set up, 
+- npm run dev for development
+- npm run build to build the site for production
 ```
 
-### Compile and Hot-Reload for Development
-
+### Connect to the Database
 ```sh
-npm run dev
+Find the API information for this website here: https://github.com/rockma04/art-api
+This link will provide the API information to set up and connect the necessary files to 
+run the website with the correct information.
 ```
 
-### Compile and Minify for Production
-
+### Connecting Routes in Script Functions
 ```sh
-npm run build
+When testing the site, use http://localhost:3000/(route-name).
+When running the published site, use /api/(route-name).
 ```
+
+### Pictures
+```sh
+Pictures on this site are saved within this project. Upload pictures that are needed 
+on this site to the public folder.
+```
+
