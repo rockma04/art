@@ -3,104 +3,79 @@ import { onMounted, ref } from "vue"
 import GalleryGrid from "./components/galleryGrid.vue"
 import PageHeader from "@/components/pageHeader.vue";
 
-const final = [
-  {
-    description: 'Test',
-    image: 'print_1.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_2.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_3.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_4.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_5.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_18.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_7.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_8.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_9.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_10.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_11.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_12.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_13.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_14.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_15.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_16.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_17.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_18.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_19.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'print_20.jpg'
-  },
-]
+const prints = ref([])
+const loading = ref(true)
+const error = ref('')
+
+async function loadPrints() {
+  loading.value = true
+  error.value = ''
+
+  try {
+    const response = await fetch('/api/prints')
+
+    if (!response.ok) {
+      throw new Error('Failed to load photos')
+    }
+    const data = await response.json();
+
+    prints.value = data.map((print) => ({
+      id: print.id,
+      description: print.description,
+      image: print.image,
+      completed: print.completed
+    }))
+  } catch (err) {
+    error.value = err.message || 'Error while trying to load prints'
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(() => {
+  loadPrints()
+})
 </script>
 
 <template>
   <PageHeader title="Prints" description="Etching, Monoprints, Photo Transfer, Relief Prints"></PageHeader>
 
-  <v-container>
+  <v-container
+      class="hidden-sm-and-down"
+      fluid
+  >
     <v-row>
       <v-col
-          v-for="fin in final"
-          :key="fin.description"
+          v-for="print in prints"
+          :key="print.description"
           cols="4"
           class="flex"
       >
         <GalleryGrid
-            :image="fin.image"
-            :description="fin.description">
+            :image="print.image"
+            :description="print.description"
+            :completed="print.completed"
+        >
+        </GalleryGrid>
+      </v-col>
+    </v-row>
+  </v-container>
+
+  <v-container
+      class="d-xs-flex d-md-none"
+      fluid
+  >
+    <v-row>
+      <v-col
+          v-for="print in prints"
+          :key="print.description"
+          cols="6"
+      >
+        <GalleryGrid
+            :image="print.image"
+            :description="print.description"
+            :completed="print.completed"
+        >
         </GalleryGrid>
       </v-col>
     </v-row>

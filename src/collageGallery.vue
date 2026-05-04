@@ -3,42 +3,42 @@ import { onMounted, ref } from "vue"
 import GalleryGrid from "./components/galleryGrid.vue"
 import PageHeader from "@/components/pageHeader.vue";
 
-const pencils = ref([])
+const collages = ref([])
 const loading = ref(true)
 const error = ref('')
 
-async function loadPencils() {
+async function loadCollages() {
   loading.value = true
   error.value = ''
 
   try {
-    const response = await fetch('/api/coloredPencil')
+    const response = await fetch('/api/collage')
 
     if (!response.ok) {
-      throw new Error('Failed to load pencil projects')
+      throw new Error('Failed to load collages')
     }
     const data = await response.json();
 
-    pencils.value = data.map((pencil) => ({
-      id: pencil.id,
-      description: pencil.description,
-      image: pencil.image,
-      completed: pencil.completed
+    collages.value = data.map((collage) => ({
+      id: collage.id,
+      description: collage.description,
+      image: collage.image,
+      completed: collage.completed
     }))
   } catch (err) {
-    error.value = err.message || 'Error while trying to load pencil projects'
+    error.value = err.message || 'Error while trying to load collages'
   } finally {
     loading.value = false
   }
 }
 
 onMounted(() => {
-  loadPencils()
+  loadCollages()
 })
 </script>
 
 <template>
-  <PageHeader title="Colored Pencil" description="Nature, Portraits, Skylines"></PageHeader>
+  <PageHeader title="Collages" description="Paper, Paint, Ink"></PageHeader>
 
   <v-container
       class="hidden-sm-and-down"
@@ -46,15 +46,15 @@ onMounted(() => {
   >
     <v-row>
       <v-col
-          v-for="pencil in pencils"
-          :key="pencil.description"
+          v-for="collage in collages"
+          :key="collage.description"
           cols="4"
           class="flex"
       >
         <GalleryGrid
-            :image="pencil.image"
-            :description="pencil.description"
-            :completed="pencil.completed"
+            :image="collage.image"
+            :description="collage.description"
+            :completed="collage.completed"
         >
         </GalleryGrid>
       </v-col>
@@ -67,14 +67,14 @@ onMounted(() => {
   >
     <v-row>
       <v-col
-          v-for="pencil in pencils"
-          :key="pencil.description"
+          v-for="collage in collages"
+          :key="collage.description"
           cols="6"
       >
         <GalleryGrid
-            :image="pencil.image"
-            :description="pencil.description"
-            :completed="pencil.completed"
+            :image="collage.image"
+            :description="collage.description"
+            :completed="collage.completed"
         >
         </GalleryGrid>
       </v-col>

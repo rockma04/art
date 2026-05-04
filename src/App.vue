@@ -1,24 +1,25 @@
 <script setup>
 import { ref, computed } from 'vue'
 import home from './home.vue'
-import about from './about.vue'
-import stock from './stock.vue'
 import potential from './potential.vue'
 import completed from './completed.vue'
 import photo from './photoGallery.vue'
 import print from './printGallery.vue'
 import pencil from './pencilGallery.vue'
+import collage from './collageGallery.vue'
+import other from './otherProjectsGallery.vue'
+import painting from './paintingGallery.vue'
 
 const routes = {
   '/': home,
-  '/about': about,
-  '/stock': stock,
   '/potential': potential,
   '/completed': completed,
   '/photo': photo,
   '/print': print,
   '/pencil': pencil,
-
+  '/collage': collage,
+  '/other': other,
+  '/painting': painting
 }
 
 const currentPath = ref (window.location.hash)
@@ -48,12 +49,6 @@ const currentView = computed(() => {
           prepend-icon="mdi-information-outline"
           href="#/about"
           title="About"
-          @click="drawer = !drawer"
-      ></v-list-item>
-      <v-list-item
-          prepend-icon="mdi-list-box-outline"
-          href="#/stock"
-          title="Stock"
           @click="drawer = !drawer"
       ></v-list-item>
       <v-list-item

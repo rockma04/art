@@ -1,123 +1,81 @@
 <script setup>
-
 import { onMounted, ref } from "vue"
 import GalleryGrid from "./components/galleryGrid.vue"
 import PageHeader from "@/components/pageHeader.vue";
 
-const final = [
-  {
-    description: 'Test',
-    image: 'photo_1.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_2.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_4.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_3.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_5.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_6.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_7.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_8.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_10.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_11.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_12.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_13.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_14.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_15.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_16.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_17.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_18.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_19.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_20.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_21.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_22.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_23.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_24.jpg'
-  },
-  {
-    description: 'Test',
-    image: 'photo_25.jpg'
-  },
-]
+const photos = ref([])
+const loading = ref(true)
+const error = ref('')
+
+async function loadPhotos() {
+  loading.value = true
+  error.value = ''
+
+  try {
+    const response = await fetch('/api/photography')
+
+    if (!response.ok) {
+      throw new Error('Failed to load photos')
+    }
+    const data = await response.json();
+
+    photos.value = data.map((photo) => ({
+      id: photo.id,
+      description: photo.description,
+      image: photo.image,
+      completed: photo.completed
+    }))
+  } catch (err) {
+    error.value = err.message || 'Error while trying to load photos'
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(() => {
+  loadPhotos()
+})
 </script>
 
 <template>
   <PageHeader title="Photo Gallery" description="Nature, Landscapes, Portraits, Still Lives"></PageHeader>
 
-  <v-container>
+  <v-container
+  class="hidden-sm-and-down"
+  fluid
+  >
     <v-row>
       <v-col
-          v-for="fin in final"
-          :key="fin.description"
+          v-for="photo in photos"
+          :key="photo.description"
           cols="4"
           class="flex"
       >
         <GalleryGrid
-            :image="fin.image"
-            :description="fin.description">
+            :image="photo.image"
+            :description="photo.description"
+            :completed="photo.completed"
+        >
+        </GalleryGrid>
+      </v-col>
+    </v-row>
+  </v-container>
+
+  <v-container
+      class="d-xs-flex d-md-none"
+      fluid
+  >
+    <v-row>
+      <v-col
+          v-for="photo in photos"
+          :key="photo.description"
+          cols="6"
+      >
+        <GalleryGrid
+            :image="photo.image"
+            :description="photo.description"
+            :completed="photo.completed"
+        >
         </GalleryGrid>
       </v-col>
     </v-row>
