@@ -9,6 +9,7 @@ import pencil from './pencilGallery.vue'
 import collage from './collageGallery.vue'
 import other from './otherProjectsGallery.vue'
 import painting from './paintingGallery.vue'
+import about from './about.vue'
 
 const routes = {
   '/': home,
@@ -19,7 +20,8 @@ const routes = {
   '/pencil': pencil,
   '/collage': collage,
   '/other': other,
-  '/painting': painting
+  '/painting': painting,
+  '/about': about
 }
 
 const currentPath = ref (window.location.hash)

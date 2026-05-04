@@ -13,37 +13,8 @@ const dateRule = ref([
 ])
 
 
-const tab = ref('Colored Pencil')
-const styles = ref([])
 const loading = ref(true)
 const error = ref('')
-
-async function loadStyles() {
-  loading.value = true
-  error.value = ''
-
-  try {
-    const response = await fetch('/api/styles')
-
-    if (!response.ok) {
-      throw new Error('Failed to load styles')
-    }
-    const data = await response.json();
-
-    styles.value = data.map((style) => ({
-      id: style.id,
-      style: style.style,
-      description: style.description,
-      image_1: style.image_1,
-      image_2: style.image_2,
-      image_3: style.image_3
-    }))
-  } catch (err) {
-    error.value = err.message || 'Error while trying to load styles'
-  } finally {
-    loading.value = false
-  }
-}
 
 const calendar = ref([])
 const events = ref ({
@@ -65,7 +36,7 @@ async function addEvent() {
   error.value = ''
 
   try {
-    const response = await fetch('http://localhost:3000/events',{
+    const response = await fetch('/api/events',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -92,7 +63,7 @@ async function loadEvents() {
   error.value = ''
 
   try {
-    const response = await fetch('http://localhost:3000/calendar')
+    const response = await fetch('/api/calendar')
 
     if (!response.ok) {
       throw new Error('Failed to load calendar')
@@ -118,7 +89,7 @@ async function addItem() {
   error.value = ''
 
   try {
-    const response = await fetch('http://localhost:3000/items',{
+    const response = await fetch('/api/items',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -145,7 +116,7 @@ async function loadList() {
   error.value = ''
 
   try {
-    const response = await fetch('http://localhost:3000/stockList')
+    const response = await fetch('/api/stockList')
 
     if (!response.ok) {
       throw new Error('Failed to load list')
@@ -168,7 +139,6 @@ async function loadList() {
 const color = ref("#000000")
 
 onMounted(() => {
-  loadStyles()
   loadList()
   loadEvents()
 })
@@ -177,41 +147,6 @@ onMounted(() => {
 
 <template>
   <PageHeader title="Potential" description="Color Picker, Calendar, and Potential Projects"></PageHeader>
-
-  <v-card>
-    <v-tabs
-        v-model="tab"
-        color="white"
-        class="bg-red-accent-1 text-grey-lighten-2"
-        grow>
-      <v-tab
-          v-for="style in styles"
-          :key="style.style"
-          :text="style.style"
-          :value="style.style"
-      >
-      </v-tab>
-    </v-tabs>
-
-    <v-tabs-window
-        v-model="tab"
-    >
-      <v-tabs-window-item
-          v-for="style in styles"
-          :key="style.style"
-          :value="style.style"
-      >
-        <ProjectCarousel
-            :style="style.style"
-            :description="style.description"
-            :image_1="style.image_1"
-            :image_2="style.image_2"
-            :image_3="style.image_3"
-        >
-        </ProjectCarousel>
-      </v-tabs-window-item>
-    </v-tabs-window>
-  </v-card>
 
 <v-container
   class="pt-4"
