@@ -5,6 +5,7 @@
 
   const pages = ref([])
   const tabs = ref([])
+  const carousels = ref([])
   const loading = ref(true)
   const error = ref('')
 
@@ -60,9 +61,33 @@
     }
   }
 
+  async function loadCarousel() {
+    loading.value = true
+    error.value = ''
+
+    try{
+      const response = await fetch('http://localhost:3000/homeCarousel')
+
+      if (!response.ok) {
+        throw new Error('Failed to load carousel')
+      }
+      const data = await response.json();
+
+      carousels.value = data.map((carousel) => ({
+        id: carousel.id,
+        image: carousel.image
+      }))
+    } catch (err) {
+      error.value = err.message || 'Error while trying to load carousel'
+    } finally {
+      loading.value = false
+    }
+  }
+
   onMounted(() => {
     loadPages()
     loadTabs()
+    loadCarousel()
   })
 
 </script>
@@ -75,44 +100,12 @@
       delimiter-icon="mdi-palette-outline"
   >
 
-    <v-carousel-item>
-      <v-parallax
-          src="carousel_1.jpg"
-          cover>
-      </v-parallax>
-    </v-carousel-item>
+    <v-carousel-item
+    v-for="carousel in carousels"
+    :src="carousel.image"
+    cover
+    ></v-carousel-item>
 
-<!--    <v-carousel-item>-->
-<!--      <v-parallax-->
-<!--          src="carousel_5.JPG"-->
-<!--          cover-->
-<!--      >-->
-<!--      </v-parallax>-->
-<!--    </v-carousel-item>-->
-
-    <v-carousel-item>
-      <v-parallax
-          src="carousel_3.jpg"
-          cover
-      >
-      </v-parallax>
-    </v-carousel-item>
-
-    <v-carousel-item>
-      <v-parallax
-          src="carousel_4.jpg"
-          cover
-      >
-      </v-parallax>
-    </v-carousel-item>
-
-<!--    <v-carousel-item>-->
-<!--      <v-parallax-->
-<!--          src="carousel_8.JPG"-->
-<!--          cover-->
-<!--      >-->
-<!--      </v-parallax>-->
-<!--    </v-carousel-item>-->
   </v-carousel>
 
   <v-carousel
@@ -122,44 +115,12 @@
       delimiter-icon="mdi-palette-outline"
   >
 
-    <v-carousel-item>
-      <v-parallax
-          src="carousel_1.jpg"
-          cover>
-      </v-parallax>
-    </v-carousel-item>
+    <v-carousel-item
+        v-for="carousel in carousels"
+        :src="carousel.image"
+        cover
+    ></v-carousel-item>
 
-<!--    <v-carousel-item>-->
-<!--      <v-parallax-->
-<!--          src="carousel_5.JPG"-->
-<!--          cover-->
-<!--      >-->
-<!--      </v-parallax>-->
-<!--    </v-carousel-item>-->
-
-    <v-carousel-item>
-      <v-parallax
-          src="carousel_3.jpg"
-          cover
-      >
-      </v-parallax>
-    </v-carousel-item>
-
-    <v-carousel-item>
-      <v-parallax
-          src="carousel_4.jpg"
-          cover
-      >
-      </v-parallax>
-    </v-carousel-item>
-
-<!--    <v-carousel-item>-->
-<!--      <v-parallax-->
-<!--          src="carousel_8.JPG"-->
-<!--          cover-->
-<!--      >-->
-<!--      </v-parallax>-->
-<!--    </v-carousel-item>-->
   </v-carousel>
 
   <v-tabs
